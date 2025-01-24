@@ -10,6 +10,7 @@ import {
   type OnConnect,
 } from '@xyflow/react';
 
+import './Flowchart.css'
 import '@xyflow/react/dist/style.css';
 
 import { initialNodes, nodeTypes } from '../nodes';
@@ -43,11 +44,11 @@ export default function FlowchartPage() {
 
   return (
     <div className="flowchart-container">
-      <header className="app-header">
+      <header className="flowchart-header">
         <h1>Playbook</h1>
       </header>
-      <div className="app-main">
-        <div className="app-flowchart">
+      <div className="flowchart-main">
+        <div className="flowchart-flowchart">
           <ReactFlow
             nodes={nodes}
             nodeTypes={nodeTypes}
@@ -65,7 +66,7 @@ export default function FlowchartPage() {
           </ReactFlow>
         </div>
         {selectedNode && (
-          <div className="app-sidebar">
+          <div className="flowchart-sidebar">
             <h3>Selected Node</h3>
             <p>ID: {selectedNode.id}</p>
             <p>Label: {selectedNode.data.label}</p>
