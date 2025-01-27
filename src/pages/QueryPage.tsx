@@ -9,7 +9,7 @@ export default function QueryPage() {
   const handleSend = () => {
     if (query.trim()) {
       localStorage.setItem('userQuery', query);
-      navigate('/references');
+      navigate('/CuratedWorkflow');
     }
   };
 
@@ -25,9 +25,9 @@ export default function QueryPage() {
       // backgroundPosition: 'center',
       // backgroundRepeat: 'no-repeat',
     }}>
-      <h1>Create Your Playbook</h1>
+      <h1>Create Your Workflow</h1>
       <h2>Enter Your Query</h2>
-      <p style={{ fontSize: '11px', color: 'gray' }}> Eg. Create a playbook for phishing detection</p>
+      <p style={{ fontSize: '11px', color: 'gray' }}> Eg. Create a workflow for phishing detection</p>
       <QueryInput query={query} setQuery={setQuery} onSend={handleSend} />
     </div>
   );
