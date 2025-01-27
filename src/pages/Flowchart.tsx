@@ -13,33 +13,37 @@ import {
 import "./Flowchart.css";
 import "@xyflow/react/dist/style.css";
 
-import { initialNodes, nodeTypes } from "../nodes";
-import { initialEdges, edgeTypes } from "../edges";
-import { AppNode, StepNode } from "../nodes/types";
+import { initialNodes, nodeTypes } from '../nodes';
+import { initialEdges, edgeTypes } from '../edges';
+import { AppNode, StepNode } from '../nodes/types';
+
+import { fetchFlowData } from '../api/api_calls'; 
+import { convertToNode, getLayoutedElements } from '../utils/NodeHelper';
 
 import { fetchFlowData } from "../api/api_calls";
 import { convertToNode } from "../utils/NodeHelper";
 
 export default function FlowchartPage() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  var [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  var [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, setSelectedNode] = useState<StepNode | null>(null);
 
   const [loading, setLoading] = useState(true); // To track the loading state
-
   // Fetch the flowchart data from the backend API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchFlowData();
-        const [nodes, edges] = convertToNode(data);
-        console.log(data);
+        const data = await fetchFlowData()
+        const [receiveNodes, receivedEdges] = convertToNode(data);
+        const [layoutedNodes, layoutedEdges] = getLayoutedElements(receiveNodes, receivedEdges);
+        setNodes(layoutedNodes);
+        setEdges(layoutedEdges);
         setLoading(false); // Mark loading as complete
       } catch (error) {
         console.error("Error fetching flowchart data:", error);
       }
     };
-
+    
     fetchData();
   }, []); // Empty dependency array ensures this runs only once on mount
 

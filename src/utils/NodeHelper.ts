@@ -9,11 +9,11 @@ export const convertToNode = (data: []) => {
 
     data.forEach((step) => {
         // Add main step as a node
-        nodes.push({ id: step.id, label: step.label, description: step.description });
+        nodes.push({ id: step.id, data: {label: step.label, description: step.description }});
 
         // Add substeps as nodes and connect them to the parent step
         step.substeps?.forEach((substep) => {
-            nodes.push({ id: substep.id, label: substep.label, description: substep.description });
+            nodes.push({ id: substep.id, data: {label: substep.label, description: substep.description }});
             edges.push({ id: [step.id, substep.id].join("->"), source: step.id, target: substep.id });
         });
     });
@@ -51,8 +51,8 @@ export const getLayoutedElements = (nodes, edges) => {
         const nodeWithPosition = dagreGraph.node(node.id);
         const newNode = {
             ...node,
-            targetPosition: isHorizontal ? 'left' : 'top',
-            sourcePosition: isHorizontal ? 'right' : 'bottom',
+            targetPosition: 'top',
+            sourcePosition: 'bottom',
             // We are shifting the dagre node position (anchor=center center) to the top left
             // so it matches the React Flow node anchor point (top left).
             position: {
@@ -62,5 +62,5 @@ export const getLayoutedElements = (nodes, edges) => {
         };
         return newNode;
     });
-    return { nodes: newNodes, edges };
+    return [ newNodes, edges ];
 };
