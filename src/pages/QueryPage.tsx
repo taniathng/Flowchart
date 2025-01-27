@@ -9,6 +9,7 @@ export default function QueryPage() {
   const handleSend = () => {
     if (query.trim()) {
       localStorage.setItem('userQuery', query);
+      console.log('Query saved:', query);
       navigate('/CuratedWorkflow');
     }
   };
@@ -20,10 +21,6 @@ export default function QueryPage() {
       alignItems: 'center',
       justifyContent: 'center',
       height: '100vh',
-      // backgroundImage: 'url("/images/background.jpg")', 
-      // backgroundSize: 'cover',
-      // backgroundPosition: 'center',
-      // backgroundRepeat: 'no-repeat',
     }}>
       <h1>Create Your Workflow</h1>
       <h2>Enter Your Query</h2>

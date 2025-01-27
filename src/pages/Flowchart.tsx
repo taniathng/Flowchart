@@ -17,13 +17,16 @@ import { initialNodes, nodeTypes } from '../nodes';
 import { initialEdges, edgeTypes } from '../edges';
 import { AppNode, StepNode } from '../nodes/types';
 
-import { fetchFlowData } from '../api/api_calls'; 
+import { fetchFlowData , fetchQueryData} from '../api/api_calls'; 
 import { convertToNode, getLayoutedElements } from '../utils/NodeHelper';
 
 export default function FlowchartPage() {
   var [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   var [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, setSelectedNode] = useState<StepNode | null>(null);
+  const [query, setQuery] = useState('');
+  const [attackType, setAttackType] = useState('');
+  const [incidentHandlingSteps, setIncidentHandlingSteps] = useState('');
 
   const [loading, setLoading] = useState(true); // To track the loading state
   // Fetch the flowchart data from the backend API
@@ -68,10 +71,42 @@ export default function FlowchartPage() {
     [selectedNode, setNodes, setEdges]
   );
 
+  useEffect(() => {
+    const userQuery = localStorage.getItem('userQuery');
+    if (userQuery) {
+      setQuery(userQuery);
+    }
+  }, []);
+
+  // Fetch the data based on the query
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true); // Start loading
+        const data = await fetchQueryData(query); // Pass the query to the API call
+        console.log("API Data:", data);
+
+        setAttackType(data.attackType);
+        setIncidentHandlingSteps(data.incidentHandlingStep);
+        console.log("Attack Type:", attackType);
+        console.log("Incident Handling Steps:", incidentHandlingSteps);
+
+        setLoading(false); // End loading
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    if (query) {
+      fetchData();
+    }
+  }, [query]); // Re-fetch if the query changes
+
   return (
     <div className="flowchart-container">
       <header className="flowchart-header">
-        <h1>Playbook</h1>
+        <h1>Workflow for {attackType}: {incidentHandlingSteps} phase </h1>
       </header>
       <div className="flowchart-main">
         <div className="flowchart-flowchart">

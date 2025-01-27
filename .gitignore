@@ -42,3 +42,4 @@ __pycache__/
 .python-version
 
 backend/flowchartbackend/
+.env
