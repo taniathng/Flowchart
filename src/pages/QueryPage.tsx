@@ -20,8 +20,14 @@ export default function QueryPage() {
       alignItems: 'center',
       justifyContent: 'center',
       height: '100vh',
+      // backgroundImage: 'url("/images/background.jpg")', 
+      // backgroundSize: 'cover',
+      // backgroundPosition: 'center',
+      // backgroundRepeat: 'no-repeat',
     }}>
-      <h1>Enter Your Query</h1>
+      <h1>Create Your Playbook</h1>
+      <h2>Enter Your Query</h2>
+      <p style={{ fontSize: '11px', color: 'gray' }}> Eg. Create a playbook for phishing detection</p>
       <QueryInput query={query} setQuery={setQuery} onSend={handleSend} />
     </div>
   );
