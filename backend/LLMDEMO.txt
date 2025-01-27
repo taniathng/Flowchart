@@ -1,0 +1,85 @@
+Cyber Attack Type : Phishing
+
+Incident Handling Phase : Identification
+
+Step 1: Phishing Detection
+
+1.a Conduct Content Scans : Begin by scanning incoming emails for suspicious content. This includes looking for common phishing indicators such as urgent language, requests for sensitive information, and unusual attachments.
+
+1.b Request Packet Capture : If a suspicious email is identified, request packet captures to analyze the traffic associated with the email. This can help in identifying the source and any malicious links
+
+1.c Categorize Incident : Classify the incident based on the type of phishing attack (e.g., spear phishing, whaling, etc.) to tailor the response strategy.
+
+1.d Define Threat Indicators : Establish specific threat indicators to look for:
+
+- Identification of spoofed emails.
+
+- Emails linked to external or unknown URLs.
+
+- Emails returned by mail servers as identified threats.
+
+1.e Monitor Organization Websites : Regularly check your organization's websites for any attempts to copy content or perform web scraping, which may indicate phishing attempts.
+
+1.f Internal Notifications: Encourage internal users to report any suspicious or fraudulent email activity. This can be facilitated through a dedicated reporting mechanism.
+
+1.g Third-Party Notifications: Stay in contact with third parties who may report suspicious activity related to your organization’s emails.
+
+1.h Law Enforcement Notifications: Be aware of any notifications from law enforcement regarding suspicious or fraudulent email activity that may involve your organization.
+
+1.i ISP Monitoring: Monitor for any notifications from your Internet Service Provider (ISP) regarding increased email or web traffic, both ingress and egress, which may indicate phishing activity
+
+1.k Web Log Monitoring: Analyze web logs to identify any suspicious referrers that may be directing traffic to your website, particularly from known phishing sites.
+
+1.l Automated Monitoring Systems: Implement automated systems to monitor all the above sources. Ensure that any detection triggers an immediate alarm for rapid response.
+
+1.m Specialized Mailing-Lists and Feeds: Subscribe to specialized mailing lists or RSS/Twitter feeds that report phishing cases to stay informed about emerging threats.
+
+1.n Active Monitoring of Phishing Repositories: Deploy active monitoring of phishing repositories such as PhishTank and Google Safe Browsing to identify known phishing sites.
+
+1.o Deploy Spam Traps: Set up spam traps to gather spam emails from partners or third parties, which can provide insights into phishing tactics.
+
+1.p Monitor Points of Contact: Closely monitor all points of contact, including email and web forms, for any signs of phishing attempts.
+
+Step 2: Analyze the phishing
+
+2.a Data Capture: Collect all relevant data related to the phishing incident, including emails, URLs, and any attachments.
+
+2.b Evidence Collection: Gather evidence such as screenshots of the phishing email, the phishing website, and any interactions users may have had with the phishing attempt.
+
+2.c Log Collection: Retrieve logs from email servers, web servers, and any other relevant systems to track the flow of the phishing attempt and identify affected users.
+
+2.d Investigate Email Headers: Analyze the email headers for artifacts such as the originating server, sender information, and any anomalies that could indicate spoofing.
+
+2.e Inspect Message Content: Review the subject and body of the phishing email to identify the tactics used (e.g., urgency, impersonation) and determine if it is a targeted campaign.
+
+2.f Check Source Code of Phishing Website: If applicable, examine the source code of the phishing website to identify any malicious scripts or methods used to capture user data.
+
+2.g Analyze Links and Domains: Use threat intelligence services to analyze the links, domains, and hostnames associated with the phishing attempt to determine their reputation and any known associations with malicious activity.
+
+2.h Sandbox Analysis: If there are any malicious attachments, use a sandbox environment to analyze them safely and extract Indicators of Compromise (IOCs).
+
+2.i Determine Risk Factors: Assess the risk factors involved, such as:
+
+- Internal user PII or other protected information at risk of exposure.
+
+- External user PII or other protected information at risk of exposure.
+
+- Whether the incident has been communicated to ISPs or partners.
+
+- Impact on public or personnel safety, customers, and business operations.
+
+2.j Identify Campaign Type: Determine if the phishing attempt is a credential harvesting campaign or a malware spreading campaign based on the collected evidence and analysis.
+
+2.k Evaluate Business Impact: Assess the worst-case business impact if the attack is not mitigated, including potential financial losses and reputational damage.
+
+2.l Document Findings: Compile all findings into a report that outlines the analysis, risk factors, and recommended actions for mitigation.
+
+Step 3: Search for Exploited Compromised Accounts: Begin by identifying any accounts that have been compromised as a result of the phishing attack. This involves reviewing logs, alerts, and user reports to pinpoint accounts that exhibit unusual activity.
+
+Step 4: Identify Related Malicious Activities: Once compromised accounts are identified, investigate any related malicious activities. This includes analyzing patterns of behavior, such as unauthorized access attempts, unusual data transfers, or interactions with known malicious IP addresses.
+
+Step 5: Determine the Number of Targeted Users: Assess the scope of the phishing attack by determining how many users were targeted. This can be done by reviewing email logs, identifying recipients of phishing emails, and correlating this data with user reports of suspicious activity.
+
+Step 6: Collect Evidence: Gather all relevant evidence related to the phishing attack. This includes email headers, timestamps, user activity logs, and any other artifacts that can help in understanding the attack vector and its impact.
+
+Step 7: Document Findings: Create a comprehensive report documenting the findings from the previous steps. This should include details on compromised accounts, related malicious activities, the number of targeted users, and collected evidence.
