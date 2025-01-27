@@ -41,4 +41,5 @@ __pycache__/
 # Ignore Python environment management files
 .python-version
 
+backend/flowchartbackend/
 .env

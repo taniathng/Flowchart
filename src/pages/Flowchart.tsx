@@ -34,11 +34,15 @@ export default function FlowchartPage() {
     const fetchData = async () => {
       try {
         const data = await fetchFlowData()
-        const [receiveNodes, receivedEdges] = convertToNode(data);
-        const [layoutedNodes, layoutedEdges] = getLayoutedElements(receiveNodes, receivedEdges);
+        const [receiveNodes, receivedEdges,receivedSubnodesDict, receivedSequentialEdges] = convertToNode(data);
+        const [layoutedNodes, layoutedEdges, layoutedSubnodesDict, layoutedSequentialEdges] = getLayoutedElements(receiveNodes, receivedEdges, receivedSubnodesDict, receivedSequentialEdges);
+        console.log(layoutedSubnodesDict)
+        Object.values(layoutedSubnodesDict).forEach(list => {
+          list?.forEach(value => layoutedNodes.push(value));
+        });
         setNodes(layoutedNodes);
-        setEdges(layoutedEdges);
-        setLoading(false); // Mark loading as complete
+        setEdges([...layoutedEdges, ...layoutedSequentialEdges]);
+        setLoading(false); // Mark loading as completes
       } catch (error) {
         console.error("Error fetching flowchart data:", error);
       }
