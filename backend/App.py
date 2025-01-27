@@ -187,6 +187,102 @@ def call_LLM_demo():
     main_nodes = parse_text_to_nodes(content)
 
     return jsonify(main_nodes), 200
+
+
+
+import json
+
+@app.route('/api/demo/llm-call-query', methods=['GET'])
+def call_LLM_demo_query():
+    user_query = request.args.get("query", "")
+    
+    if not user_query:
+        return jsonify({"error": "Query is required"}), 400
+
+    llm_response = chatbot_function(user_query)
+
+    # Extract attackType and incidentHandlingStep from the LLM response
+    try:
+        response_json = json.loads(llm_response)  # Ensure the LLM response is valid JSON
+        attack_type = response_json.get("attackType", "")
+        incident_handling_step = response_json.get("incidentHandlingStep", "")
+    except Exception as e:
+        return jsonify({"error": "Failed to parse LLM response", "details": str(e)}), 500
+
+    # Return the extracted fields as JSON
+    return jsonify({
+        "attackType": attack_type,
+        "incidentHandlingStep": incident_handling_step
+    }), 200
+
+# set up the LLM 
+from dotenv import load_dotenv
+import os
+from google.auth.transport.requests import Request
+from google.oauth2.service_account import Credentials
+import vertexai
+from langchain_google_vertexai import ChatVertexAI
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get environment variables
+google_credentials = {
+    "type": "service_account",
+    "project_id": os.getenv("GOOGLE_PROJECT_ID"),
+    "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
+    "private_key": os.getenv("GOOGLE_PRIVATE_KEY").replace("\\n", "\n"),  # Ensure proper formatting for private key
+    "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
+    "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+    "auth_uri": os.getenv("GOOGLE_AUTH_URI"),
+    "token_uri": os.getenv("GOOGLE_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("GOOGLE_AUTH_PROVIDER_CERT_URL"),
+    "client_x509_cert_url": os.getenv("GOOGLE_CLIENT_CERT_URL"),
+}
+
+# Create credentials from the dictionary
+credentials = Credentials.from_service_account_info(
+    google_credentials,
+    scopes=["https://www.googleapis.com/auth/cloud-platform"]
+)
+
+# Initialize Vertex AI with the credentials
+vertexai.init(
+    project=os.getenv("GOOGLE_PROJECT_ID"),
+    location=os.getenv("REGION"),
+    credentials=credentials
+)
+
+# Example LLM interaction
+llm = ChatVertexAI(model="gemini-1.5-flash", credentials=credentials)
+response = llm.predict("What is the capital of France?")
+print("Test response:")
+print(response)
+
+def chatbot_function(user_query):
+
+    """
+    Chatbot function that processes a user query and interacts with an LLM
+    to generate a response in JSON format.
+    """
+    # Define the system instruction for the LLM
+    system_message = """
+    Extract the attack type and incident handling step from the following query.
+    The response must be in valid JSON format, including only the fields 
+    `attackType` and `incidentHandlingStep`. 
+    Do not include any additional text or explanation before or after the JSON response.
+    """
+    #note refine system message 
+
+    # Concatenate the system message and user query
+    full_message = f"{system_message}\nQuery: {user_query}"
+
+    # Generate the response
+    response_message = llm.predict(full_message)
+
+    return response_message
+
+
 if __name__ == '__main__':
     # start_up()
     app.run(debug=True, port=5001)
