@@ -2,8 +2,8 @@ import '@xyflow/react/dist/style.css';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import QueryPage from './pages/QueryPage';
-import References from './pages/References';
 import Flowchart from './pages/Flowchart';
+import CuratedWorkflow from './pages/CuratedWorkflow';
 
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/" element={<QueryPage />} />
         
         {/* Route for the References Page */}
-        <Route path="/references" element={<References />} />
+        <Route path="/curatedworkflow" element={<CuratedWorkflow />} />
         
         {/* Route for the Flowchart Page */}
         <Route path="/flowchart" element={<Flowchart />} />
