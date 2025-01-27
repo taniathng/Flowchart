@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from "react";
 import {
   ReactFlow,
   Background,
@@ -8,18 +8,17 @@ import {
   useNodesState,
   useEdgesState,
   type OnConnect,
-} from '@xyflow/react';
+} from "@xyflow/react";
 
-import './Flowchart.css'
-import '@xyflow/react/dist/style.css';
+import "./Flowchart.css";
+import "@xyflow/react/dist/style.css";
 
-import { initialNodes, nodeTypes } from '../nodes';
-import { initialEdges, edgeTypes } from '../edges';
-import { AppNode, StepNode } from '../nodes/types';
+import { initialNodes, nodeTypes } from "../nodes";
+import { initialEdges, edgeTypes } from "../edges";
+import { AppNode, StepNode } from "../nodes/types";
 
-import { fetchFlowData } from '../api/api_calls'; 
-import { convertToNode } from '../utils/NodeHelper';
-
+import { fetchFlowData } from "../api/api_calls";
+import { convertToNode } from "../utils/NodeHelper";
 
 export default function FlowchartPage() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -32,12 +31,12 @@ export default function FlowchartPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchFlowData()
+        const data = await fetchFlowData();
         const [nodes, edges] = convertToNode(data);
         console.log(data);
         setLoading(false); // Mark loading as complete
       } catch (error) {
-        console.error('Error fetching flowchart data:', error);
+        console.error("Error fetching flowchart data:", error);
       }
     };
 
@@ -89,13 +88,16 @@ export default function FlowchartPage() {
         </div>
         {selectedNode && (
           <div className="flowchart-sidebar">
-            <h3>Selected Node</h3>
-            <p>ID: {selectedNode.id}</p>
-            <p>Label: {selectedNode.data.label}</p>
+            <h3>{selectedNode.data.label}</h3>
+            {/* <p>ID: {selectedNode.id}</p> */}
+            {/* <p>Label: {selectedNode.data.label}</p> */}
             <p>
-              Position: {`x: ${selectedNode.position.x}, y: ${selectedNode.position.y}`}
+              {/* Position: {`x: ${selectedNode.position.x}, y: ${selectedNode.position.y}`} */}
             </p>
-            <p>Description: {selectedNode.data.description}</p>
+            {selectedNode.data.description && (
+              <p>Description: {selectedNode.data.description}
+              </p>
+            )}
           </div>
         )}
       </div>
