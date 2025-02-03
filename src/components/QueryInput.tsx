@@ -15,21 +15,25 @@ export default function QueryInput({ query, setQuery, onSend }: QueryInputProps)
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         style={{
-          padding: '8px',
-          borderRadius: '4px',
+          padding: '12px',
+          borderRadius: '6px',
           border: '1px solid #ccc',
+          width: '400px', 
+          height: '30px', 
+          fontSize: '16px', 
           flex: 1,
         }}
       />
       <button
         onClick={onSend}
         style={{
-          padding: '8px 16px',
+          padding: '19px 40px',
           backgroundColor: '#007bff',
           color: 'white',
           border: 'none',
-          borderRadius: '4px',
+          borderRadius: '6px',
           cursor: 'pointer',
+          fontSize: '16px', 
         }}
       >
         Send
