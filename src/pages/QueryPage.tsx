@@ -22,10 +22,18 @@ export default function QueryPage() {
       justifyContent: 'center',
       height: '100vh',
     }}>
-      <h1>Create Your Workflow</h1>
-      <h2>Enter Your Query</h2>
-      <p style={{ fontSize: '11px', color: 'gray' }}> Eg. Create a workflow for phishing detection</p>
-      <QueryInput query={query} setQuery={setQuery} onSend={handleSend} />
+      <h1 style={{ fontSize: '32px' , marginBottom: '40px'}}>Create Your Workflow</h1>
+      {/* <h2 style={{ fontSize: '24px', color: '#555', marginTop: '0' }}>Enter Your Query</h2> */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <QueryInput query={query} setQuery={setQuery} onSend={handleSend} />
+        <p style={{ fontSize: '15px', color: 'gray', marginTop: '4px' , paddingLeft: '13px'}}>  
+          Eg. Create a workflow for phishing detection  
+        </p>
+      </div>
+
+      
+      {/* <QueryInput query={query} setQuery={setQuery} onSend={handleSend} />
+      <p style={{ fontSize: '15px', color: 'gray' }}> Eg. Create a workflow for phishing detection</p> */}
     </div>
   );
 }
