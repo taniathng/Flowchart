@@ -12,19 +12,21 @@ const curatedWorkflow = [
 
 export default function CuratedWorkflow() {
   const navigate = useNavigate();
-
+  const attackType = localStorage.getItem('attackType') || '';
+  const incidentHandlingStep = localStorage.getItem('incidentHandlingStep') || '';
+ 
   const handleCreatePlaybook = () => {
     navigate('/Flowchart');
   };
 
   return (
     <div style={{ padding: '20px' }}>
-      {/* <Typography variant="h4" align="center" gutterBottom>
-        Curated Workflow
-      </Typography> */}
-      <h1 style={{ fontSize: '32px' , marginBottom: '0px'}}>Create Your Workflow</h1>
+      <h2 style={{ fontSize: '39px' , marginBottom: '0px'}}> Relevant workflows from curated repositories
+      </h2>
+      <h2 style={{ fontSize: '27px' ,color: '#333', marginBottom: '0px'}}>Identified Attack Type: {attackType}</h2>
+      <h2 style={{ fontSize: '27px' ,color: '#333', marginTop: '0px', marginBottom: '1px'}}>Incident Handling Phase: {incidentHandlingStep}</h2>
       <p style={{ fontSize: '15px', color: '#1976D2', marginTop: '4px' , paddingLeft: '3px'}}>  
-        Click "Create my workflow" to proceed </p>
+        Click "Create my workflow" below to proceed </p>
       {/* Grid Layout for Cards */}
       <Grid container spacing={3}>
         {curatedWorkflow.map((ref) => (

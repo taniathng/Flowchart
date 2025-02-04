@@ -24,9 +24,8 @@ export default function FlowchartPage() {
   var [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   var [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, setSelectedNode] = useState<StepNode | null>(null);
-  const [query, setQuery] = useState('');
-  const [attackType, setAttackType] = useState('');
-  const [incidentHandlingSteps, setIncidentHandlingSteps] = useState('');
+  const attackType = localStorage.getItem('attackType') || '';
+  const incidentHandlingStep = localStorage.getItem('incidentHandlingStep') || '';
 
   const [loading, setLoading] = useState(true); // To track the loading state
   // Fetch the flowchart data from the backend API
@@ -71,44 +70,13 @@ export default function FlowchartPage() {
     [selectedNode, setNodes, setEdges]
   );
 
-  useEffect(() => {
-    const userQuery = localStorage.getItem('userQuery');
-    if (userQuery) {
-      setQuery(userQuery);
-    }
-  }, []);
-
-  // Fetch the data based on the query
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true); // Start loading
-        const data = await fetchQueryData(query); // Pass the query to the API call
-        console.log("API Data:", data);
-
-        setAttackType(data.attackType);
-        setIncidentHandlingSteps(data.incidentHandlingStep);
-        console.log("Attack Type:", attackType);
-        console.log("Incident Handling Steps:", incidentHandlingSteps);
-
-        setLoading(false); // End loading
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-
-    if (query) {
-      fetchData();
-    }
-  }, [query]); // Re-fetch if the query changes
 
   return (
     <div className="flowchart-container">
       <header className="flowchart-header">
       <h1>
-        {attackType && incidentHandlingSteps 
-          ? `Workflow for ${attackType}: ${incidentHandlingSteps} phase` 
+        {attackType && incidentHandlingStep
+          ? `Workflow for ${attackType}: ${incidentHandlingStep} phase` 
           : "Workflow"}
       </h1>
       </header>

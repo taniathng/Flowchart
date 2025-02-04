@@ -4,9 +4,10 @@ type QueryInputProps = {
   query: string;
   setQuery: (value: string) => void;
   onSend: () => void;
-};
+  disabled?: boolean; 
+}
 
-export default function QueryInput({ query, setQuery, onSend }: QueryInputProps) {
+export default function QueryInput({ query, setQuery, onSend, disabled = false }: QueryInputProps) {
   return (
     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
       <input
