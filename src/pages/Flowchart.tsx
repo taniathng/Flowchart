@@ -106,7 +106,11 @@ export default function FlowchartPage() {
   return (
     <div className="flowchart-container">
       <header className="flowchart-header">
-        <h1>Workflow for {attackType}: {incidentHandlingSteps} phase </h1>
+      <h1>
+        {attackType && incidentHandlingSteps 
+          ? `Workflow for ${attackType}: ${incidentHandlingSteps} phase` 
+          : "Workflow"}
+      </h1>
       </header>
       <div className="flowchart-main">
         <div className="flowchart-flowchart">

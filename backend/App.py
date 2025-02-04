@@ -195,47 +195,50 @@ def call_LLM():
 @app.route('/api/demo/llm-call', methods=['GET'])
 def call_LLM_demo():
     call_LLM() # generate text for IR phases
-    # with open('IR_phase.txt', 'r') as file:
-    with open('LLMDEMO.txt', 'r') as file:
-        content = file.read()
-    def parse_text_to_nodes(text):
-        mainnodes = []
-        current_step = None
-        current_substeps = []
+    for IR_phase in IR_phases:
+        fileName = IR_phase+'.txt'
+        print("fileName = ",fileName)
+        with open('LLMDEMO.txt', 'r') as file:
+        # with open(fileName, 'r') as file:
+            content = file.read()
+        def parse_text_to_nodes(text):
+            mainnodes = []
+            current_step = None
+            current_substeps = []
 
-        for line in text.splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            if re.match(r"^Step \d+: ", line):
-                match = re.search(r"^Step (\d+):", line)
-                id = match.group(1)
-                matchHeader = re.search(r'^(.*?:.*?)(?::(.*))?$', line)
-                label = matchHeader.group(1).strip() if matchHeader else ""
-                description = matchHeader.group(2).strip() if matchHeader.group(2) else ""
-                if current_step:
-                    mainnodes.append(current_step)
-                current_step = {'label': label,'id':id,'description':description, 'substeps':[]}
-                current_substeps = current_step['substeps']
-            elif re.match(r"^\d+\.\w+ ", line):
-                substep_match = re.match(r"^(\d+\.\w+) (.+): (.+)", line)
-                if substep_match:
-                    substep_id, label, description = substep_match.groups()
-                    formatted_id = "".join(substep_id.split("."))
-                    current_substeps.append({
-                        'id':formatted_id,
-                        'label':label,
-                        'description':description
-                    })
-            elif line.startswith("-"):
-                if current_substeps:
-                    current_substeps[-1].setdefault("details", []).append(line.strip("- ").strip())
-        if current_step:
-            mainnodes.append(current_step)
-        return mainnodes
-    main_nodes = parse_text_to_nodes(content)
+            for line in text.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                if re.match(r"^Step \d+: ", line):
+                    match = re.search(r"^Step (\d+):", line)
+                    id = match.group(1)
+                    matchHeader = re.search(r'^(.*?:.*?)(?::(.*))?$', line)
+                    label = matchHeader.group(1).strip() if matchHeader else ""
+                    description = matchHeader.group(2).strip() if matchHeader.group(2) else ""
+                    if current_step:
+                        mainnodes.append(current_step)
+                    current_step = {'label': label,'id':id,'description':description, 'substeps':[]}
+                    current_substeps = current_step['substeps']
+                elif re.match(r"^\d+\.\w+ ", line):
+                    substep_match = re.match(r"^(\d+\.\w+) (.+): (.+)", line)
+                    if substep_match:
+                        substep_id, label, description = substep_match.groups()
+                        formatted_id = "".join(substep_id.split("."))
+                        current_substeps.append({
+                            'id':formatted_id,
+                            'label':label,
+                            'description':description
+                        })
+                elif line.startswith("-"):
+                    if current_substeps:
+                        current_substeps[-1].setdefault("details", []).append(line.strip("- ").strip())
+            if current_step:
+                mainnodes.append(current_step)
+            return mainnodes
+        main_nodes = parse_text_to_nodes(content)
 
-    return jsonify(main_nodes), 200
+        return jsonify(main_nodes), 200
 
 
 
@@ -284,7 +287,7 @@ def chatbot_function(user_query):
     full_message = f"{system_message}\nQuery: {user_query}"
 
     # Generate the response
-    response_message = llm.predict(full_message)
+    response_message = chat.predict(full_message)
 
     return response_message
 
