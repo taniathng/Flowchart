@@ -21,35 +21,35 @@ Step 3: Identify any source attribution collected
   - System Logs. Review system logs for unusual access patterns or anomalies that coincide with the phishing attempt.
    - Incident Database. Look for previous incidents that may have similar characteristics or patterns.
    - Threat Database. Consult threat intelligence databases to identify known phishing campaigns or malicious actors.
-3.b Query Database. Utilize queries to extract relevant data from various databases. This may include searching for specific indicators of compromise (IOCs) related to the phishing attack.
-3.c Analyze Collected Data. After gathering data from the selected databases, analyze the information to identify any commonalities or patterns that could point to the source of the phishing attack.
-3.d Review and Validate. Cross-reference the findings with other security teams or threat intelligence sources to validate the attribution and ensure accuracy.
-3.e Document Findings. Record all findings in a structured format, ensuring that the source attribution is clear and supported by the data collected.
-3.f Generate Report. Start by generating a comprehensive report on the phishing incident. This report should include timestamps, affected users, and any preliminary analysis of the phishing attempt.
+3.b Query Database: Utilize queries to extract relevant data from various databases. This may include searching for specific indicators of compromise (IOCs) related to the phishing attack.
+3.c Analyze Collected Data: After gathering data from the selected databases, analyze the information to identify any commonalities or patterns that could point to the source of the phishing attack.
+3.d Review and Validate: Cross-reference the findings with other security teams or threat intelligence sources to validate the attribution and ensure accuracy.
+3.e Document Findings: Record all findings in a structured format, ensuring that the source attribution is clear and supported by the data collected.
+3.f Generate Report: Start by generating a comprehensive report on the phishing incident. This report should include timestamps, affected users, and any preliminary analysis of the phishing attempt.
 Step 4: Identify the systems that have been affected
-4.a. Initial Assessment. Begin by gathering information about the phishing attack, including the nature of the attack (e.g., email, link, attachment) and the targeted users.
-4.b User Reports. Collect reports from users who may have interacted with the phishing attempt. This can include users who clicked on links, entered credentials, or downloaded attachments.
-4 c. Log Analysis. Review system and application logs to identify any unusual access patterns or activities. Focus on logs from:
+4.a. Initial Assessment: Begin by gathering information about the phishing attack, including the nature of the attack (e.g., email, link, attachment) and the targeted users.
+4.b User Reports: Collect reports from users who may have interacted with the phishing attempt. This can include users who clicked on links, entered credentials, or downloaded attachments.
+4 c. Log Analysis: Review system and application logs to identify any unusual access patterns or activities. Focus on logs from:
    - LDAP Directory. Check for unauthorized access or changes to user accounts.
    - Email Servers. Look for emails flagged as phishing or any unusual email activity.
 
-4.d Endpoint Investigation. Examine endpoints that may have been affected:
-   - Mobile Devices. Check for any suspicious applications or configurations.
-   - Laptops and Desktops. Run malware scans and check for unauthorized software installations.
-   - Virtual Machines (VM). Inspect VMs for any signs of compromise or unusual behavior.
-4.e Server Review. Assess any servers that may have been targeted or accessed during the attack. This includes:
-   - Web Servers. Look for signs of web application compromise.
-   - Database Servers. Check for unauthorized access to sensitive data.
-4.f Network Traffic Analysis. Analyze network traffic for any anomalies that may indicate compromised systems. Look for:
+4.d Endpoint Investigation: Examine endpoints that may have been affected:
+   - Mobile Devices: Check for any suspicious applications or configurations.
+   - Laptops and Desktops: Run malware scans and check for unauthorized software installations.
+   - Virtual Machines (VM): Inspect VMs for any signs of compromise or unusual behavior.
+4.e Server Review: Assess any servers that may have been targeted or accessed during the attack. This includes:
+   - Web Servers: Look for signs of web application compromise.
+   - Database Servers: Check for unauthorized access to sensitive data.
+4.f Network Traffic Analysis: Analyze network traffic for any anomalies that may indicate compromised systems. Look for:
    - Unusual outbound connections from affected systems.
    - Traffic patterns that suggest data exfiltration.
-4.g Cross-Referencing. Cross-reference findings from the above steps to create a comprehensive list of affected systems. This may involve:
+4.g Cross-Referencing: Cross-reference findings from the above steps to create a comprehensive list of affected systems. This may involve:
    - Correlating user reports with log data.
    - Identifying commonalities among affected endpoints.
-4.h. Documentation. Document all findings, including the systems identified as affected, the nature of the compromise, and any immediate actions taken.
-Step 5 :  Identify User Credentials Compromised or at Risk. Begin by assessing which user accounts may have been compromised due to the phishing attack. This involves checking logs and user reports to identify any unauthorized access.
-Step 6 :  Identify Additional Systems at Risk. Evaluate other systems that may be linked to the compromised accounts. This includes checking for shared credentials or systems that may have been accessed using the compromised accounts.
-Step 7 :  Identify Malicious Code on Systems Linked to Fraudulent Sites. Conduct a thorough scan of systems that interacted with the phishing site to identify any malicious code that may have been downloaded or executed.
-Step 8 :  Identify IT Services Being Impacted. Determine which IT services are affected by the phishing attack. This may include email services, authentication services, or any other critical infrastructure.
-Step 9 :  . Block the Phishing Campaign. Utilize email gateway solutions to block the phishing campaign based on identified senders, subjects, or other email artifacts. This helps prevent further phishing emails from reaching users.
-Step 10 :  . Try to Delete Phishing Emails from Inboxes. Implement measures to remove phishing emails from user inboxes. This may involve using email filtering tools to identify and delete these emails.
+4.h. Documentation: Document all findings, including the systems identified as affected, the nature of the compromise, and any immediate actions taken.
+Step 5 :  Identify User Credentials Compromised or at Risk: Begin by assessing which user accounts may have been compromised due to the phishing attack. This involves checking logs and user reports to identify any unauthorized access.
+Step 6 :  Identify Additional Systems at Risk: Evaluate other systems that may be linked to the compromised accounts. This includes checking for shared credentials or systems that may have been accessed using the compromised accounts.
+Step 7 :  Identify Malicious Code on Systems Linked to Fraudulent Sites: Conduct a thorough scan of systems that interacted with the phishing site to identify any malicious code that may have been downloaded or executed.
+Step 8 :  Identify IT Services Being Impacted: Determine which IT services are affected by the phishing attack. This may include email services, authentication services, or any other critical infrastructure.
+Step 9 :  Block the Phishing Campaign: Utilize email gateway solutions to block the phishing campaign based on identified senders, subjects, or other email artifacts. This helps prevent further phishing emails from reaching users.
+Step 10 : Try to Delete Phishing Emails from Inboxes: Implement measures to remove phishing emails from user inboxes. This may involve using email filtering tools to identify and delete these emails.

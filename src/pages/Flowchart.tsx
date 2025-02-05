@@ -79,7 +79,6 @@ export default function FlowchartPage() {
         const data = await fetchFlowData(attackType, incidentHandlingStep);
         const [receiveNodes, receivedEdges,receivedSubnodesDict, receivedSequentialEdges] = convertToNode(data);
         const [layoutedNodes, layoutedEdges, layoutedSubnodesDict, layoutedSequentialEdges] = getLayoutedElements(receiveNodes, receivedEdges, receivedSubnodesDict, receivedSequentialEdges);
-        console.log(layoutedSubnodesDict)
         // setLogs((prev) => [...prev, "Applying layout adjustments..."]);
         Object.values(layoutedSubnodesDict).forEach(list => {
           list?.forEach(value => layoutedNodes.push(value));
