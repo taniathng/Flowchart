@@ -1,0 +1,39 @@
+Cyber Attack Type : Phishing
+Incident Handling Phase : Preparation
+Step 1: Stepwise Process for Establishing External Contacts in Incident Handling for a Phishing Attack.
+1.a Identify Relevant CERTs: Research and compile a list of Computer Emergency Response Teams (CERTs) worldwide that specialize in phishing and cyber threats. This will ensure you have access to expert assistance when needed.
+1.b Create a Contact List: Develop a comprehensive contact list that includes:
+   - CERTs
+   - Hosting companies
+   - Domain registry companies
+   - Email service providers
+1.c Establish Communication Channels:
+   - Set up a dedicated email address (e.g., security@yourcompany) that is easy to remember and accessible to all employees.
+   - Create a web form on your company’s website for reporting incidents, ensuring it is no more than two clicks away from the main page for easy access.
+1.d Set Up a 24/7 Contact System: Ensure that your contact methods are monitored around the clock. This may involve assigning specific personnel to manage communications during off-hours.
+1.e Develop a Visible Social Media Presence: Create and maintain a Twitter account or other social media profiles dedicated to security communications. This will help in disseminating information quickly and receiving alerts from the community.
+1.f Regularly Update Contact Information: Periodically review and update your contact list to ensure that all information is current and that  you have the latest contacts for takedown requests.
+1.g Train Staff on Contact Procedures: Conduct training sessions for relevant staff on how to use these external contacts effectively during a phishing incident, including when and how to escalate issues.
+1.h Document and Review: Keep a record of all external contacts and their responses during incidents. Review this documentation regularly to improve your incident handling process.
+Step 2: Raise business line awareness 
+2.a Identify Stakeholders: Determine the key business lines and stakeholders who need to be involved in the awareness campaign, including management, IT, and end-users.
+
+2. bDeploy Reporting Tools: Implement a technical solution that allows employees to easily report suspicious emails to the security team. This could be a button in the email client or a dedicated reporting tool.
+2.c Develop Training Materials: Create educational content that explains what phishing is, how to recognize phishing attempts, and the importance of reporting them. This can include presentations, infographics, and videos.
+2.d Run Awareness Campaigns: Schedule periodic phishing awareness campaigns that include training sessions, newsletters, and posters. Use real-world examples to illustrate the risks and consequences of phishing.
+2.e Conduct Phishing Simulations: Organize simulated phishing attacks to test employees' awareness and response. Provide feedback and additional training based on the results.
+2.f Establish Procedures for Analysis: Create specific procedures for analyzing attachments and URLs in reported emails. Ensure that employees know how to follow these procedures when they report suspicious content.
+2.g Gather Feedback: After the awareness initiatives, collect feedback from employees to assess the effectiveness of the training and tools. Use this feedback to improve future campaigns.
+2.h Continuous Improvement: Regularly update training materials and procedures based on emerging phishing trends and feedback from employees. Ensure that awareness remains a priority within the organization.
+Step 3: Conduct Interviews: Initiate interviews with users, managers, physical security personnel, and key stakeholders to gather insights on the phishing attack's context and impact.
+Step 4: Review & Maintain Timeline: Establish a timeline of events related to the phishing attack, documenting when the attack was first detected, any user reports, and subsequent actions taken.
+Step 5: Determine Core Ops Team: Identify and assemble the Core Operations Team responsible for managing the incident. This team should include roles such as vulnerability manager, threat manager, and risk manager.
+Step 6: Define Roles: Clearly define the roles and responsibilities of each team member within the Core Ops Team to ensure efficient incident management.
+Step 7: Prepare Communication: Draft a communication plan that is ready to be published at any time. This should include warnings about the ongoing phishing attack and guidance for collaborators on how to respond.
+Step 8: Test Deployment Procedures: Prepare and test a clear deployment procedure for responding to the phishing attack, ensuring that all team members are familiar with the steps to take.
+Step 9: Raise Customer Awareness: Develop and implement strategies to raise awareness among customers about the phishing attack, including potential risks and how to identify phishing attempts.
+
+Step 10: Deploy Email Security Protocols: Ensure that DKIM, DMARC, and SPF are deployed across all email communications to enhance security and reduce the likelihood of phishing attacks.
+Step 11: Maintain Internal Contacts: Keep an updated list of all individuals accredited to make decisions regarding cybercrime and phishing actions, including any contractual agreements that empower them to act.
+Step 12: Monitor Cybersquatted Domains: Actively monitor for cybersquatted domains and any content posted on them that may relate to the phishing attack. Gather contact and abuse information for potential future actions.
+Step 13: Implement Multi-Factor Authentication: Ensure that multi-factor authentication mechanisms are in place to add an additional layer of security for users.

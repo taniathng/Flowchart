@@ -1,9 +1,13 @@
 export const BASE_URL = 'http://127.0.0.1:5005';
 
-export const fetchFlowData = async () => {
+export const fetchFlowData = async (attackTypeQuery: string, incidentHandlingPhaseQuery: string) => {
     try {
-      // Append query parameters to the URL
-        const response = await fetch(`${BASE_URL}/api/demo/llm-call`);
+        const params = {
+            attackType: attackTypeQuery,
+            incidentHandlingPhase: incidentHandlingPhaseQuery
+        }
+        const encodedQuery = new URLSearchParams(params).toString(); // Encode the query properly
+        const response = await fetch(`${BASE_URL}/api/demo/llm-call?${encodedQuery}`);
     
         if (!response.ok) {
             throw new Error('Failed to fetch flowchart data');
