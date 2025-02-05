@@ -119,7 +119,8 @@ export default function FlowchartPage() {
   return (
     <div className="flowchart-container">
       <header className="flowchart-header">
-      <h1 style = {{paddingLeft: '20px'}}>
+      <h1 style = {{paddingLeft: '20px'}}></h1>
+      <h1>
         {attackType && incidentHandlingStep
           ? `Workflow for ${attackType}: ${incidentHandlingStep} phase` 
           : "Workflow"}
