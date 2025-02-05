@@ -1,0 +1,44 @@
+Cyber Attack Type : Phishing
+Incident Handling Phase : Remediation
+Step 1: Triage and confirm incident report
+1.a Initial Report Review: Gather all relevant information from the user who reported the phishing incident. This includes the email headers, content, and any links or attachments.
+1.b Verify the Source: Check the sender's email address and domain against known phishing sources. Use threat intelligence feeds to confirm if the sender is associated with malicious activity.
+1.c Analyze the Content: Examine the email content for common phishing indicators, such as urgent language, requests for sensitive information, or suspicious links. 
+1.d Test Malware Eradication Procedure: If the phishing email contained attachments or links, simulate the opening of these in a controlled environment to determine if they contain malware. This helps confirm the threat level.
+1.e Contain Phishing Sample Test Implementation: If the phishing email is confirmed, implement containment measures. This may involve blocking the sender's address and quarantining the email.
+1.f Request System Patch, Rule Update, or Content Filter Modification: Based on the findings, request necessary updates to security systems. This could include patching vulnerabilities, updating email filtering rules, or modifying content filters to prevent similar incidents in the future.
+1.g Document Findings: Record all findings, actions taken, and any changes made to security protocols. This documentation is crucial for future reference and for improving incident response processes.
+1.h Communicate with Stakeholders: Inform relevant stakeholders about the incident, including IT teams, management, and affected users, to ensure awareness and preparedness for potential follow-up actions.
+Step 2: Identify Compromised Accounts: Analyze logs and alerts to identify accounts that may have been compromised due to the phishing attack.
+Step 3: Change Login Credentials: Immediately change the login credentials of the identified compromised accounts to prevent unauthorized access.
+Step 4: Block Temporary Access: Temporarily block access to the compromised accounts to ensure that no further unauthorized actions can be taken while remediation is in progress.
+Step 5: Notify Affected Users: Inform the users of the compromised accounts about the incident and the actions taken to secure their accounts.
+Step 6: Monitor Account Activity: Implement monitoring on the affected accounts to detect any suspicious activity during the remediation process 
+Step 7: Conduct a Root Cause Analysis: Investigate how the phishing attack occurred and identify any vulnerabilities that need to be addressed.
+Step 8: Implement Security Measures: Based on the findings, implement additional security measures such as multi-factor authentication (MFA) to enhance account security.
+Step 9: Educate Users: Provide training and resources to users on recognizing phishing attempts and best practices for account security.
+Step 10: Eradicate malware
+10.a Identify Affected Systems: Conduct a thorough investigation to identify all systems that may have been compromised due to the phishing attack. This includes user endpoints, servers, and any network devices.
+10.b. Isolate Affected Systems: Immediately isolate the identified systems from the network to prevent further spread of malware and to protect other systems.
+10.c Coordinate with 3rd Party Takedown Services: If the phishing attack involved malicious URLs or domains, coordinate with third-party takedown services to remove or disable these malicious resources.
+10.d Implement Technical Counter-Measures: Deploy technical counter-measures such as firewalls, intrusion detection systems, and endpoint protection solutions to block any further attempts of malware installation or communication with command and control servers.
+10.e URL Redirect with ISP: Work with your Internet Service Provider (ISP) to implement URL redirects for any known malicious URLs associated with the phishing attack, effectively preventing users from accessing these sites.
+10.f Add/Change/Remove Affected Systems: Depending on the severity of the infection, you may need to add new systems, change configurations, or remove severely compromised systems from the network.
+10.g Conduct a Full System Scan: Use updated antivirus and anti-malware tools to perform a comprehensive scan of the affected systems to identify and remove any remaining malware.
+10.h Monitor for Residual Threats: After eradication, continuously monitor the affected systems for any signs of residual threats or reinfection.
+10.i Document the Incident: Record all actions taken during the eradication process for future reference and to improve incident response protocols.
+10.j Review and Update Security Policies: Post-incident, review and update security policies and training to prevent future phishing attacks.
+Step 11: Communications
+11.a Identify Stakeholders: Determine who needs to be informed about the phishing incident. This may include IT staff, management, affected users, and possibly external partners.
+11.b Select Communication Method: Choose the most appropriate method for communication based on the urgency and audience. Options include:
+   - Mobile Messaging: For quick alerts to team members.
+   - Intranet Meeting: For internal discussions with relevant departments.
+   - Internet Meeting: For remote teams or external stakeholders.
+   - In-person Meeting: For critical discussions that require face-to-face interaction.
+   - Direct Phone Call: For immediate communication with key personnel.
+   - Conference Call: For involving multiple stakeholders simultaneously.
+11.c Draft Communication: Prepare a clear and concise message outlining the incident, its impact, and any immediate actions that need to be taken. Ensure the message is tailored to the audience.
+11.d Disseminate Information: Use the selected communication method to share the information with stakeholders. Ensure that all relevant parties receive the message promptly.
+11.e Establish Feedback Mechanism: Allow stakeholders to ask questions or provide feedback regarding the incident. This can be done through follow-up meetings or dedicated communication channels.
+11.f Document Communications: Keep a record of all communications related to the incident for future reference and compliance purposes.
+11.g Review and Update: After the incident is resolved, review the communication process to identify any areas for improvement in future incident handling.

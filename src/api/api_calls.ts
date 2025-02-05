@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:5004';
+export const BASE_URL = 'http://127.0.0.1:5005';
 
 export const fetchFlowData = async () => {
     try {
