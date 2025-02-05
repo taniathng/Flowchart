@@ -147,35 +147,41 @@ export default function FlowchartPage() {
       ) : (
         <>
           {/* Flowchart */}
-          <div className="flowchart-main">
-            <div className="flowchart-flowchart">
-              <ReactFlow
-                nodes={nodes}
-                nodeTypes={nodeTypes}
-                onNodesChange={onNodesChange}
-                edges={edges}
-                edgeTypes={edgeTypes}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                onNodeClick={handleNodeClick}
-                fitView
-              >
-                <Background />
-                <MiniMap />
-                <Controls />
-              </ReactFlow>
-            </div>
-
-            {/* Sidebar for selected node */}
-            {selectedNode && (
-              <div className="flowchart-sidebar">
-                <h3>{selectedNode.data.label}</h3>
-                {selectedNode.data.description && (
-                  <p>Description: {selectedNode.data.description}</p>
-                )}
-              </div>
-            )}
+            <div className="flowchart-container">
+              <div className="flowchart-main">
+                <div className="flowchart-flowchart">
+                  <ReactFlow
+                    nodes={nodes}
+                    nodeTypes={nodeTypes}
+                    onNodesChange={onNodesChange}
+                    edges={edges}
+                    edgeTypes={edgeTypes}
+                    onEdgesChange={onEdgesChange}
+                    onConnect={onConnect}
+                    onNodeClick={handleNodeClick}
+                    fitView
+                  >
+                    <Background />
+                    <MiniMap />
+                    <Controls />
+                  </ReactFlow>
+                </div>
+              {selectedNode && (
+                <div className="flowchart-sidebar">
+                  <h3>{selectedNode.data.label}</h3>
+                  {/* <p>ID: {selectedNode.id}</p> */}
+                  {/* <p>Label: {selectedNode.data.label}</p> */}
+                  <p>
+                    {/* Position: {`x: ${selectedNode.position.x}, y: ${selectedNode.position.y}`} */}
+                  </p>
+                  {selectedNode.data.description && (
+                    <p>Description: {selectedNode.data.description}
+                    </p>
+                  )}
+                </div>
+              )}
           </div>
+        </div>
         </>
       )}
     </div>
