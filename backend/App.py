@@ -299,8 +299,8 @@ def process_query(user_query):
     system_message = """
     Extract the attack type and incident handling step from the following query.
     The response must be in valid JSON format, including only the fields 
-    `attackType` and `incidentHandlingStep`. 'phishing detection' is the only form of attack type.
-    There should only be "identification", "recovery", "remediation", "preperation" and "containment" as incident handling steps, if not pick the closest one of out of the three.
+    `attackType` and `incidentHandlingStep`. 'phishing' is the only form of attack type.
+    There should only be "identification", "recovery", "remediation", "preparation" and "containment" as incident handling steps, if not pick the closest one of out of the three.
     Do not include any additional text or explanation before or after the JSON response.
     """
     #note refine system message 
