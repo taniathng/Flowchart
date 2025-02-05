@@ -41,20 +41,19 @@ def start_up():
     global chat
     # Do Not Push API Key
     # Example LLM interaction
-    api = "Paste OPENAI API KEY HERE"
     chat = ChatOpenAI(model="gpt-4o-mini",api_key = api, temperature=0.2, top_p=0.1)
     response = chat.predict("What is the capital of Germany?")
     # print("Test response:")
     # print(response)
 
-    # global driver
-    # # connect to neo4j using python
-    # URI = 'bolt://localhost:7687'
-    # AUTH = ('neo4j',"P@ssw0rd")
-    # with GraphDatabase.driver(URI, auth=AUTH) as driver:
-    #     driver.verify_connectivity()
-    #     print("connection established")
-    #     log_message("Connection to database established...")
+    global driver
+    # connect to neo4j using python
+    URI = 'bolt://localhost:7687'
+    AUTH = ('neo4j',"P@ssw0rd")
+    with GraphDatabase.driver(URI, auth=AUTH) as driver:
+        driver.verify_connectivity()
+        print("connection established")
+        log_message("Connection to database established...")
 
 
 def find_key_steps_for_phase(cyber_attack, IR_phase):
@@ -172,11 +171,11 @@ def test():
 def call_LLM():
     log_message("Generating workflow...")
     for IR_phase in IR_phases:
-        info = find_key_steps_for_phase(cyber_attack, IR_phase)
+        info = find_key_steps_for_phase(cyber_attack[0], IR_phase)
         info_steps = get_details_IR_step(info)
         c_steps = compress_IR_step(info_steps)
         info_steps_dict = c_steps.to_dict(orient='records')
-        wf = gen_workflows_IR_phase(info_steps_dict, IR_phase, cyber_attack, chat)
+        wf = gen_workflows_IR_phase(info_steps_dict, IR_phase, cyber_attack[0], chat)
     print("generated wf = ", wf)
     generatedWorkflow = "Generated workflow : "+ wf
     log_message(generatedWorkflow)
@@ -184,7 +183,7 @@ def call_LLM():
 
 @app.route('/api/demo/llm-call', methods=['GET'])
 def call_LLM_demo():
-    # call_LLM() # generate text for IR phases
+    call_LLM() # generate text for IR phases
     user_query = request.args   
     attack_query = user_query.get("attackType", "")
     phase_query = user_query.get("incidentHandlingPhase", "")
@@ -246,7 +245,8 @@ def call_LLM_demo():
             mainnodes.append(current_step)
         return mainnodes
     main_nodes = parse_text_to_nodes(content)
-
+        
+    log_message("Identification generation complete!")  #
     return jsonify(main_nodes), 200
 
 

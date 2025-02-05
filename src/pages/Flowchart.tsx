@@ -61,8 +61,11 @@ export default function FlowchartPage() {
       if (event.data !== "[heartbeat]") {
         setLogs((prevLogs) => [...prevLogs, event.data]);
       }
+      // Check if logs indicate completion
+    if (event.data.includes("Identification generation complete!")) {
+      setLogsReady(true);
+    }
     };
-
     return () => eventSource.close();  // Cleanup on unmount
   }, []);
 
@@ -134,8 +137,8 @@ export default function FlowchartPage() {
     }}> 
   
       {/* Loading UI with spinner */}
-      {/* {loading || !logsReady ? ( */}
-      {loading ? (
+      {loading || !logsReady ? (
+      // {loading ? (
         <div> <h1 style={{ fontSize: '32px', marginBottom: '40px' }}>Hang on while your workflow is generating</h1>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: "20px" }}>
           <CircularProgress size={50} style={{ marginBottom: '20px' }} />
