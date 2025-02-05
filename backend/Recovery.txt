@@ -1,0 +1,25 @@
+Cyber Attack Type : Phishing
+Incident Handling Phase : Recovery
+Step 1: Incident Remediation
+1.a Identify and Isolate Affected Systems: Determine which systems have been compromised due to the phishing attack. Isolate these systems from the network to prevent further spread of the attack.
+1.b Remove Vulnerabilities & Update Routers: Assess the vulnerabilities that may have been exploited during the phishing attack. Apply necessary patches and updates to routers and other network devices to close any security gaps.
+1.c Scan File Share with Updated Signature: Conduct a thorough scan of file shares and shared drives using updated antivirus and anti-malware signatures. This helps identify any malicious files that may have been introduced during the attack.
+1.d Scan Host with Updated Signature: Perform a comprehensive scan of the affected hosts (workstations, servers) using the latest signatures to detect and remove any malware or unauthorized software that may have been installed.
+1.e Wipe & Baseline System: For systems that are heavily compromised or cannot be cleaned effectively, consider wiping the system and restoring it to a known good baseline state. This ensures that any remnants of the attack are completely removed.
+1.f Monitor and Review: After remediation, continuously monitor the systems for any signs of residual threats or re-infection. Review logs and alerts to ensure that the incident has been fully contained.
+1.g Document and Report: Document the entire remediation process, including the steps taken, findings, and any changes made to the systems. Prepare a report for stakeholders and for future reference in improving incident response protocols.
+Step 2: Recover systems
+2.a Email Filter Action: Review and update email filters to block any phishing emails that may still be circulating. This includes adding specific keywords or sender addresses to the block list.
+2.b Remove Temporary Containment: If any systems or accounts were temporarily contained (isolated) during the incident, carefully remove these containment measures. Ensure that the systems are fully patched and secure before reintroducing them to the network.
+2.c IDS/IPS & Firewall Updates: Update Intrusion Detection Systems (IDS) and Intrusion Prevention Systems (IPS) to recognize and block any known phishing signatures. Additionally, review and update firewall rules to prevent unauthorized access or data exfiltration.
+2.d Reimage Affected Systems: For any systems that were compromised, perform a complete reimage to restore them to a known good state. This ensures that any malware or backdoors introduced during the phishing attack are completely removed.
+2.e Monitor Systems Post-Recovery: After recovery actions are taken, closely monitor the systems for any unusual activity. Implement enhanced logging and alerting to detect any potential re-infection or further attacks.
+Step 3: Initial Assessment: Review the details of the phishing attack, including the fraudulent URL, email addresses used, and any associated user reports. Document all findings for future reference.
+Step 4: Monitoring the Fraudulent URL: Set up continuous monitoring for the fraudulent URL. Use automated tools to check if the URL reappears or if there are any changes in its status.
+Step 5: Check for Redirection: Investigate if the phishing URL employs any redirection techniques. If so, monitor the redirection closely to ensure that it does not lead to another fraudulent site.
+Step 6:  Verification of Takedown: Confirm that the fraudulent pages and email addresses have been taken down. This may involve checking with hosting providers or using online tools to verify the status of the URLs..
+Step 7: Documentation of Findings: Keep a detailed log of all actions taken, including timestamps of when the fraudulent content was reported, monitored, and confirmed as taken down.
+Step 8: User Notification: Inform affected users about the phishing attempt, providing guidance on how to protect themselves and what steps to take if they interacted with the fraudulent content.
+Step 9: Post-Incident Review: Conduct a review of the incident handling process to identify any gaps or areas for improvement. This should include evaluating the effectiveness of monitoring tools and response strategies.
+Step 10: Update Security Measures: Based on the findings from the post-incident review, update security protocols and user training to prevent future phishing attacks.
+
