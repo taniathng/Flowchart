@@ -6,6 +6,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from neo4j import GraphDatabase
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
+from pathlib import Path
 import re
 
 pd.options.display.max_rows=4000
@@ -15,8 +16,9 @@ pd.set_option("max_colwidth",4000)
 chat = None
 driver = None
 
-cyber_attack = 'Phishing'
-IR_phases = ['Identification']
+data_path = Path('data/')
+cyber_attack = ['phishing']
+IR_phases = ['identification', 'containment', 'recovery', 'remediation', 'preparation']
 
 import queue
 import threading
@@ -39,19 +41,20 @@ def start_up():
     global chat
     # Do Not Push API Key
     # Example LLM interaction
+    api = "Paste OPENAI API KEY HERE"
     chat = ChatOpenAI(model="gpt-4o-mini",api_key = api, temperature=0.2, top_p=0.1)
     response = chat.predict("What is the capital of Germany?")
     # print("Test response:")
     # print(response)
 
-    global driver
-    # connect to neo4j using python
-    URI = 'bolt://localhost:7687'
-    AUTH = ('neo4j',"P@ssw0rd")
-    with GraphDatabase.driver(URI, auth=AUTH) as driver:
-        driver.verify_connectivity()
-        print("connection established")
-        log_message("Connection to database established...")
+    # global driver
+    # # connect to neo4j using python
+    # URI = 'bolt://localhost:7687'
+    # AUTH = ('neo4j',"P@ssw0rd")
+    # with GraphDatabase.driver(URI, auth=AUTH) as driver:
+    #     driver.verify_connectivity()
+    #     print("connection established")
+    #     log_message("Connection to database established...")
 
 
 def find_key_steps_for_phase(cyber_attack, IR_phase):
@@ -181,51 +184,70 @@ def call_LLM():
 
 @app.route('/api/demo/llm-call', methods=['GET'])
 def call_LLM_demo():
-    call_LLM() # generate text for IR phases
-    for IR_phase in IR_phases:
-        fileName = IR_phase+'.txt'
-        # print("fileName = ",fileName)
-        with open('LLMDEMO.txt', 'r') as file:
-        # with open(fileName, 'r') as file:
-            content = file.read()
-        def parse_text_to_nodes(text):
-            mainnodes = []
-            current_step = None
-            current_substeps = []
+    # call_LLM() # generate text for IR phases
+    user_query = request.args   
+    attack_query = user_query.get("attackType", "")
+    phase_query = user_query.get("incidentHandlingPhase", "")
+    attack = None
+    phase = None
 
-            for line in text.splitlines():
-                line = line.strip()
-                if not line:
-                    continue
-                if re.match(r"^Step \d+: ", line):
-                    match = re.search(r"^Step (\d+):", line)
-                    id = match.group(1)
-                    matchHeader = re.search(r'^(.*?:.*?)(?::(.*))?$', line)
-                    label = matchHeader.group(1).strip() if matchHeader else ""
-                    description = matchHeader.group(2).strip() if matchHeader.group(2) else ""
-                    if current_step:
-                        mainnodes.append(current_step)
-                    current_step = {'label': label,'id':id,'description':description, 'substeps':[]}
-                    current_substeps = current_step['substeps']
-                elif re.match(r"^\d+\.\w+ ", line):
-                    substep_match = re.match(r"^(\d+\.\w+) (.+): (.+)", line)
-                    if substep_match:
-                        substep_id, label, description = substep_match.groups()
-                        formatted_id = "".join(substep_id.split("."))
-                        current_substeps.append({
-                            'id':formatted_id,
-                            'label':label,
-                            'description':description
-                        })
-                elif line.startswith("-"):
-                    if current_substeps:
-                        current_substeps[-1].setdefault("details", []).append(line.strip("- ").strip())
-            if current_step:
-                mainnodes.append(current_step)
-            return mainnodes
-        main_nodes = parse_text_to_nodes(content)
+    attack_match = next((attack_type for attack_type in cyber_attack if attack_type in attack_query), None)
+    if attack_match:
+        attack = attack_match
+    else:
+        return jsonify({"error": "Attack type is not valid"}), 400
+    
+    phase_match = next((phase_type for phase_type in IR_phases if phase_type in phase_query), None)
+    if phase_match:
+        phase = phase_match
+    else:
+        return jsonify({"error": "Incident Handling Phase is not valid"}), 400
+    
+    fileName = data_path / attack / (phase + '.txt')
+    print(fileName)
+    if not (fileName.exists()):
+        return jsonify({"error": "File not found"}), 404
+    
+    with open(fileName, 'r') as file:
+        content = file.read()
+    def parse_text_to_nodes(text):
+        mainnodes = []
+        current_step = None
+        current_substeps = []
 
-        return jsonify(main_nodes), 200
+        for line in text.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            if re.match(r"^Step \d+: ", line):
+                match = re.search(r"^Step (\d+):", line)
+                id = match.group(1)
+                matchHeader = re.search(r'^(.*?:.*?)(?::(.*))?$', line)
+                label = matchHeader.group(1).strip() if matchHeader else ""
+                description = matchHeader.group(2).strip() if matchHeader.group(2) else ""
+                if current_step:
+                    mainnodes.append(current_step)
+                current_step = {'label': label,'id':id,'description':description, 'substeps':[]}
+                current_substeps = current_step['substeps']
+            elif re.match(r"^\d+\.\w+ ", line):
+                substep_match = re.match(r"^(\d+\.\w+) (.+): (.+)", line)
+                if substep_match:
+                    substep_id, label, description = substep_match.groups()
+                    formatted_id = "".join(substep_id.split("."))
+                    current_substeps.append({
+                        'id':formatted_id,
+                        'label':label,
+                        'description':description
+                    })
+            elif line.startswith("-"):
+                if current_substeps:
+                    current_substeps[-1].setdefault("details", []).append(line.strip("- ").strip())
+        if current_step:
+            mainnodes.append(current_step)
+        return mainnodes
+    main_nodes = parse_text_to_nodes(content)
+
+    return jsonify(main_nodes), 200
 
 
 
@@ -277,7 +299,8 @@ def process_query(user_query):
     system_message = """
     Extract the attack type and incident handling step from the following query.
     The response must be in valid JSON format, including only the fields 
-    `attackType` and `incidentHandlingStep`. 
+    `attackType` and `incidentHandlingStep`. 'phishing detection' is the only form of attack type.
+    There should only be "identification", "recovery", "remediation", "preperation" and "containment" as incident handling steps, if not pick the closest one of out of the three.
     Do not include any additional text or explanation before or after the JSON response.
     """
     #note refine system message 

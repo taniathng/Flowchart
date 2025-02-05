@@ -73,7 +73,7 @@ export default function FlowchartPage() {
       try {
         // setLogs((prev) => [...prev, "Fetching flowchart data..."]);
         // setLogs((prev) => [...prev, "Data received, processing nodes and edges..."]);
-        const data = await fetchFlowData()
+        const data = await fetchFlowData(attackType, incidentHandlingStep);
         const [receiveNodes, receivedEdges,receivedSubnodesDict, receivedSequentialEdges] = convertToNode(data);
         const [layoutedNodes, layoutedEdges, layoutedSubnodesDict, layoutedSequentialEdges] = getLayoutedElements(receiveNodes, receivedEdges, receivedSubnodesDict, receivedSequentialEdges);
         console.log(layoutedSubnodesDict)
@@ -119,12 +119,11 @@ export default function FlowchartPage() {
   return (
     <div className="flowchart-container">
       <header className="flowchart-header">
-      <h1 style = {{paddingLeft: '20px'}}></h1>
-      <h1>
-        {attackType && incidentHandlingStep
-          ? `Workflow for ${attackType}: ${incidentHandlingStep} phase` 
-          : "Workflow"}
-      </h1>
+        <h1 style = {{paddingLeft: '20px'}}>
+          {attackType && incidentHandlingStep
+            ? `Workflow for ${attackType}: ${incidentHandlingStep} phase` 
+            : "Workflow"}
+        </h1>
       </header>
       <div style={{
       display: 'flex',
@@ -148,41 +147,41 @@ export default function FlowchartPage() {
       ) : (
         <>
           {/* Flowchart */}
-            <div className="flowchart-container">
-              <div className="flowchart-main">
-                <div className="flowchart-flowchart">
-                  <ReactFlow
-                    nodes={nodes}
-                    nodeTypes={nodeTypes}
-                    onNodesChange={onNodesChange}
-                    edges={edges}
-                    edgeTypes={edgeTypes}
-                    onEdgesChange={onEdgesChange}
-                    onConnect={onConnect}
-                    onNodeClick={handleNodeClick}
-                    fitView
-                  >
-                    <Background />
-                    <MiniMap />
-                    <Controls />
-                  </ReactFlow>
-                </div>
-              {selectedNode && (
-                <div className="flowchart-sidebar">
-                  <h3>{selectedNode.data.label}</h3>
-                  {/* <p>ID: {selectedNode.id}</p> */}
-                  {/* <p>Label: {selectedNode.data.label}</p> */}
-                  <p>
-                    {/* Position: {`x: ${selectedNode.position.x}, y: ${selectedNode.position.y}`} */}
+            
+            <div className="flowchart-main">
+              <div className="flowchart-flowchart">
+                <ReactFlow
+                  nodes={nodes}
+                  nodeTypes={nodeTypes}
+                  onNodesChange={onNodesChange}
+                  edges={edges}
+                  edgeTypes={edgeTypes}
+                  onEdgesChange={onEdgesChange}
+                  onConnect={onConnect}
+                  onNodeClick={handleNodeClick}
+                  fitView
+                >
+                  <Background />
+                  <MiniMap />
+                  <Controls />
+                </ReactFlow>
+              </div>
+            {selectedNode && (
+              <div className="flowchart-sidebar">
+                <h3>{selectedNode.data.label}</h3>
+                {/* <p>ID: {selectedNode.id}</p> */}
+                {/* <p>Label: {selectedNode.data.label}</p> */}
+                <p>
+                  {/* Position: {`x: ${selectedNode.position.x}, y: ${selectedNode.position.y}`} */}
+                </p>
+                {selectedNode.data.description && (
+                  <p>Description: {selectedNode.data.description}
                   </p>
-                  {selectedNode.data.description && (
-                    <p>Description: {selectedNode.data.description}
-                    </p>
-                  )}
-                </div>
-              )}
-          </div>
+                )}
+              </div>
+            )}
         </div>
+        
         </>
       )}
     </div>
