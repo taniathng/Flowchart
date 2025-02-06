@@ -177,14 +177,13 @@ def test():
     return "Backend is up"
 
 @app.route('/api/llm-call', methods=['GET'])
-def call_LLM():
+def call_LLM(attackType, incidentHandlingPhase):
     log_message("Generating workflow...")
-    for IR_phase in IR_phases:
-        info = find_key_steps_for_phase(cyber_attack[0], IR_phase)
-        info_steps = get_details_IR_step(info)
-        c_steps = compress_IR_step(info_steps)
-        info_steps_dict = c_steps.to_dict(orient='records')
-        wf = gen_workflows_IR_phase(info_steps_dict, IR_phase, cyber_attack[0], chat)
+    info = find_key_steps_for_phase(attackType, incidentHandlingPhase)
+    info_steps = get_details_IR_step(info)
+    c_steps = compress_IR_step(info_steps)
+    info_steps_dict = c_steps.to_dict(orient='records')
+    wf = gen_workflows_IR_phase(info_steps_dict, incidentHandlingPhase, attackType, chat)
     print("generated wf = ", wf)
     generatedWorkflow = "Generated workflow : "+ wf
     log_message(generatedWorkflow)
@@ -192,7 +191,6 @@ def call_LLM():
 
 @app.route('/api/demo/llm-call', methods=['GET'])
 def call_LLM_demo():
-    call_LLM() # generate text for IR phases
     user_query = request.args   
     attack_query = user_query.get("attackType", "")
     phase_query = user_query.get("incidentHandlingPhase", "")
@@ -211,6 +209,8 @@ def call_LLM_demo():
     else:
         return jsonify({"error": "Incident Handling Phase is not valid"}), 400
     
+    call_LLM(attack, phase)
+
     fileName = data_path / attack / (phase + '.txt')
     print(fileName)
     if not (fileName.exists()):
