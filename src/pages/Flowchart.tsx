@@ -58,12 +58,15 @@ export default function FlowchartPage() {
 
     eventSource.onmessage = (event) => {
       console.log("📡 Received log from backend:", event.data);
-      if (event.data !== "[heartbeat]") {
+      if (event.data !== "[heartbeat]" && loading) {
         setLogs((prevLogs) => [...prevLogs, event.data]);
       }
+
       // Check if logs indicate completion
     if (event.data.includes("Identification generation complete!")) {
-      setLogsReady(true);
+      setTimeout(() => {
+        setLogsReady(true);
+      }, 2000); 
     }
     };
     return () => eventSource.close();  // Cleanup on unmount
@@ -74,23 +77,25 @@ export default function FlowchartPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // setLogs((prev) => [...prev, "Fetching flowchart data..."]);
-        // setLogs((prev) => [...prev, "Data received, processing nodes and edges..."]);
+        setLogs((prev) => [...prev, "Fetching flowchart data..."]);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setLogs((prev) => [...prev, "Data received, processing nodes and edges..."]);
         const data = await fetchFlowData(attackType, incidentHandlingStep);
         const [receiveNodes, receivedEdges,receivedSubnodesDict, receivedSequentialEdges] = convertToNode(data);
         const [layoutedNodes, layoutedEdges, layoutedSubnodesDict, layoutedSequentialEdges] = getLayoutedElements(receiveNodes, receivedEdges, receivedSubnodesDict, receivedSequentialEdges);
-        // setLogs((prev) => [...prev, "Applying layout adjustments..."]);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setLogs((prev) => [...prev, "Applying layout adjustments..."]);
         Object.values(layoutedSubnodesDict).forEach(list => {
           list?.forEach(value => layoutedNodes.push(value));
         });
         setNodes(layoutedNodes);
         setEdges([...layoutedEdges, ...layoutedSequentialEdges]);
-        // setLogs((prev) => [...prev, "Flowchart successfully loaded."]);
+        setLogs((prev) => [...prev, "Flowchart successfully loaded."]);
         setLoading(false); // Mark loading as completes
         navigate('/Flowchart');
       } catch (error) {
         console.error("Error fetching flowchart data:", error);
-        // setLogs((prev) => [...prev, "Error fetching flowchart data."]);
+        setLogs((prev) => [...prev, "Error fetching flowchart data."]);
       }
     };
     
@@ -142,8 +147,8 @@ export default function FlowchartPage() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: "20px" }}>
           <CircularProgress size={50} style={{ marginBottom: '20px' }} />
           <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#1976D2' }}>Loading, please wait...</p>
-        {/* Log Window
-        {showLogs && logs.length > 0 && <LogWindow logs={logs} onClose={() => setShowLogs(false)} />} */}
+        Log Window
+        {showLogs && logs.length > 0 && <LogWindow logs={logs} onClose={() => setShowLogs(false)} />}
         </div>
         </div>
       ) : (

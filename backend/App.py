@@ -65,9 +65,9 @@ def find_key_steps_for_phase(cyber_attack, IR_phase):
     attack_nodes, summary, keys = driver.execute_query("match (k:TTP_Type WHERE toUpper(k.name) = '"+cyber_attack+"') return ID(k) as node_id, k['source'] as node_source", database_="neo4j")
     # For each attack_node, find all its neighbors of the type IR_phase. For each of the nodes of type IR_phase, find its immediate neighbors, 
     # and store their description and node id. 
-    print("attack_nodes = ",attack_nodes)
-    message = ("attack_nodes = ",attack_nodes)
-    log_message(message)
+    # print("attack_nodes = ",attack_nodes)
+    # message = ("attack_nodes = ",attack_nodes)
+    # log_message(message)
     for atk_node in attack_nodes:
         phase_nodes, summary, keys = driver.execute_query("match (k:TTP_Type)-->(p:"+IR_phase+") WHERE ID(k) = "+str(atk_node['node_id'])+" return ID(p) as nbr_id,p.ATTACK_TTP as nbr_ttp,p.objective as nbr_obj", database_="neo4j")
         for phase_node in phase_nodes:
@@ -116,6 +116,7 @@ def compress_IR_step(IR_phase_steps_info):
 def gen_workflow_for_step(step_info,IR_phase,cyber_attack, llm_chat):
     # print("inside gen_workflow_for_step()")
     stage = step_info['IRPhaseStep_node_desc']
+    log_message(f"Processing node for phase '{IR_phase}' in attack '{cyber_attack}'")
     messages  = [
                     SystemMessage(content="""You are an excellent cyber security analyst and you can recommend incident handling workflows.
                     #STYLE#
@@ -131,6 +132,14 @@ def gen_workflow_for_step(step_info,IR_phase,cyber_attack, llm_chat):
     
     ]
     new_result = llm_chat.invoke(messages)
+    response_text = new_result.content
+    log_message(f"LLM Response: {response_text}")
+    # for line in response_text.split("\n"):
+    #     if line.strip():  # Ignore empty lines
+    #         log_message(f"LLM Output: {line}")
+    #         time.sleep(0.5)  # Simulate streaming effect
+
+    log_message(f"Completed Step in: '{IR_phase}'")
     return(new_result.content)
 
 def gen_workflows_IR_phase(steps_info,IR_phase,cyber_attack, llm_chat):
