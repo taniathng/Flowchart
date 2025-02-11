@@ -5,7 +5,7 @@ import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 const curatedWorkflow = [
   { id: 1, title: 'IRM-Main', description: 'Phishing Detection', image: '/images/IRMPhoto.png', link: '/IRM-main.pdf' },
-  { id: 2, title: 'Scottish Government' , description: 'Phishing', image: '/images/ScottishPhoto.png', link: '/ScottishGovernment.pdf' },
+  // { id: 2, title: 'Scottish Government' , description: 'Phishing', image: '/images/ScottishPhoto.png', link: '/ScottishGovernment.pdf' },
   { id: 3, title: 'Incident Response', description: 'Phishing', image: 'images/IRPhoto.png', link: '/IncidentResponse.pdf' },
   // Add more references as needed
 ];
@@ -39,7 +39,7 @@ export default function CuratedWorkflow() {
                 </Typography>
               </CardContent>
               {/* Embedded PDF Viewer */}
-              <div style={{ height: '400px', width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+              <div style={{ height: '800px', width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
                 <Worker workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`}>
                   <Viewer fileUrl={ref.link} />
                 </Worker>

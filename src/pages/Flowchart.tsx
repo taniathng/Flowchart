@@ -92,7 +92,7 @@ export default function FlowchartPage() {
         setEdges([...layoutedEdges, ...layoutedSequentialEdges]);
         setLogs((prev) => [...prev, "Flowchart successfully loaded."]);
         setLoading(false); // Mark loading as completes
-        navigate('/Flowchart');
+        // navigate('/Flowchart');
       } catch (error) {
         console.error("Error fetching flowchart data:", error);
         setLogs((prev) => [...prev, "Error fetching flowchart data."]);
@@ -141,13 +141,13 @@ export default function FlowchartPage() {
     }}> 
   
       {/* Loading UI with spinner */}
-      {loading || !logsReady ? (
-      // {loading ? (
+      {/* {loading || !logsReady ? ( */}
+      {loading ? (
         <div> <h1 style={{ fontSize: '32px', marginBottom: '40px' }}>Hang on while your workflow is generating</h1>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: "20px" }}>
           <CircularProgress size={50} style={{ marginBottom: '20px' }} />
           <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#1976D2' }}>Loading, please wait...</p>
-        Log Window
+        {/* Log Window */}
         {showLogs && logs.length > 0 && <LogWindow logs={logs} onClose={() => setShowLogs(false)} />}
         </div>
         </div>
